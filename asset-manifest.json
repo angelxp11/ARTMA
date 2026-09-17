@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ARTMA/static/css/main.dc9063ec.css",
+    "main.js": "/ARTMA/static/js/main.ab797d76.js",
+    "static/js/453.a4b16841.chunk.js": "/ARTMA/static/js/453.a4b16841.chunk.js",
+    "index.html": "/ARTMA/index.html",
+    "main.dc9063ec.css.map": "/ARTMA/static/css/main.dc9063ec.css.map",
+    "main.ab797d76.js.map": "/ARTMA/static/js/main.ab797d76.js.map",
+    "453.a4b16841.chunk.js.map": "/ARTMA/static/js/453.a4b16841.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dc9063ec.css",
+    "static/js/main.ab797d76.js"
+  ]
+}
