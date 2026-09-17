@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { db } from './api';
 
 export const getStatus = () => 'ok';
@@ -62,6 +62,7 @@ export const createExpense = async (expense) => {
     monto: Number(expense.monto),
     fecha: expense.fecha,
     detalles: expense.detalles || '',
+    estado: expense.estado || 'activa',
     createdAt: new Date().toISOString(),
   };
 
@@ -126,8 +127,50 @@ export const updateSale = async (id, sale) => {
 
 export const cancelSale = async (id) => {
   const saleRef = doc(db, 'sales', id);
+  const saleSnap = await getDoc(saleRef);
+
+  if (!saleSnap.exists()) {
+    throw new Error('La factura no existe');
+  }
+
+  const saleData = saleSnap.data();
+  if (saleData.estado === 'anulada') {
+    return { id, estado: 'anulada', ...saleData };
+  }
+
+  if (saleData.productId) {
+    const productRef = doc(db, 'products', saleData.productId);
+    const productSnap = await getDoc(productRef);
+
+    if (productSnap.exists()) {
+      const currentStock = Number(productSnap.data().cantidad || 0);
+      const restoredStock = currentStock + Number(saleData.cantidad || 0);
+      await updateDoc(productRef, {
+        cantidad: restoredStock,
+        updatedAt: new Date().toISOString(),
+      });
+    }
+  }
+
   await updateDoc(saleRef, { estado: 'anulada', updatedAt: new Date().toISOString() });
-  return { id, estado: 'anulada' };
+  return { id, estado: 'anulada', ...saleData };
+};
+
+export const cancelExpense = async (id) => {
+  const expenseRef = doc(db, 'expenses', id);
+  const expenseSnap = await getDoc(expenseRef);
+
+  if (!expenseSnap.exists()) {
+    throw new Error('El egreso no existe');
+  }
+
+  const expenseData = expenseSnap.data();
+  if (expenseData.estado === 'anulada') {
+    return { id, estado: 'anulada', ...expenseData };
+  }
+
+  await updateDoc(expenseRef, { estado: 'anulada', updatedAt: new Date().toISOString() });
+  return { id, estado: 'anulada', ...expenseData };
 };
 
 export const updateProductStock = async (id, cantidad) => {

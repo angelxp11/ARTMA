@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import '../caja/caja.css';
 import './contabilidad.css';
-import { createExpense, getExpenses, getSales } from '../../server/functions';
+import { cancelExpense, createExpense, getExpenses, getSales } from '../../server/functions';
+import { getActiveExpensesTotal, getActiveSalesTotal } from '../../server/logic';
 import { showToast } from '../../resources/toastcontainer/ToastContainer';
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -33,8 +34,8 @@ const Contabilidad = () => {
 
   useEffect(() => { loadData(); }, []);
 
-  const totalVentas = sales.reduce((total, sale) => total + Number(sale.total || 0), 0);
-  const totalEgresos = expenses.reduce((total, expense) => total + Number(expense.monto || 0), 0);
+  const totalVentas = getActiveSalesTotal(sales);
+  const totalEgresos = getActiveExpensesTotal(expenses);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,7 +46,7 @@ const Contabilidad = () => {
 
     try {
       setSaving(true);
-      const expense = await createExpense({ ...form, descripcion: form.descripcion.trim(), monto: parseMoneyInput(form.monto) });
+      const expense = await createExpense({ ...form, descripcion: form.descripcion.trim(), monto: parseMoneyInput(form.monto), estado: 'activa' });
       setExpenses(prev => [expense, ...prev].sort((a, b) => b.fecha.localeCompare(a.fecha)));
       setForm({ descripcion: '', monto: '', fecha: today(), detalles: '' });
       showToast('Egreso guardado correctamente', 'success');
@@ -53,6 +54,17 @@ const Contabilidad = () => {
       showToast('No se pudo guardar el egreso', 'error');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const removeExpense = async (expense) => {
+    if (!window.confirm('El egreso se marcará como anulado. El registro se conservará.')) return;
+    try {
+      const result = await cancelExpense(expense.id);
+      setExpenses(prev => prev.map(item => item.id === expense.id ? { ...item, ...result } : item));
+      showToast('Egreso anulado', 'success');
+    } catch (error) {
+      showToast('No se pudo anular el egreso', 'error');
     }
   };
 
@@ -86,22 +98,31 @@ const Contabilidad = () => {
           <div className="movement-list">
             <h3>Ventas</h3>
             {!sales.length && <p>No hay ventas registradas.</p>}
-            {sales.map(sale => (
-              <article className="movement-item" key={sale.id}>
-                <div><strong>{sale.producto}</strong><span>{sale.fecha} | {sale.cantidad} unidad(es)</span>{sale.detalles && <small>{sale.detalles}</small>}</div>
-                <b>{formatMoney(sale.total)}</b>
-              </article>
-            ))}
+            {sales.map(sale => {
+              const isCancelled = sale.estado === 'anulada';
+              return (
+                <article className={`movement-item ${isCancelled ? 'cancelled-entry' : ''}`} key={sale.id}>
+                  <div><strong>{sale.producto}</strong><span>{sale.fecha} | {sale.cantidad} unidad(es){isCancelled ? ' | Anulada' : ''}</span>{sale.detalles && <small>{sale.detalles}</small>}</div>
+                  <b>{formatMoney(sale.total)}</b>
+                </article>
+              );
+            })}
           </div>
           <div className="movement-list">
             <h3>Egresos</h3>
             {!expenses.length && <p>No hay egresos registrados.</p>}
-            {expenses.map(expense => (
-              <article className="movement-item" key={expense.id}>
-                <div><strong>{expense.descripcion}</strong><span>{expense.fecha}</span>{expense.detalles && <small>{expense.detalles}</small>}</div>
-                <b className="expense-amount">-{formatMoney(expense.monto)}</b>
-              </article>
-            ))}
+            {expenses.map(expense => {
+              const isCancelled = expense.estado === 'anulada';
+              return (
+                <article className={`movement-item ${isCancelled ? 'cancelled-entry' : ''}`} key={expense.id}>
+                  <div><strong>{expense.descripcion}</strong><span>{expense.fecha}{isCancelled ? ' | Anulado' : ''}</span>{expense.detalles && <small>{expense.detalles}</small>}</div>
+                  <div className="movement-item-actions">
+                    <b className="expense-amount">-{formatMoney(expense.monto)}</b>
+                    {!isCancelled && <button type="button" className="danger-btn" onClick={() => removeExpense(expense)}>Anular</button>}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       )}

@@ -55,6 +55,12 @@
   background: #fff;
 }
 
+.movement-item.cancelled-entry {
+  border-color: #d6a1a1;
+  background: #fff5f5;
+  opacity: 0.8;
+}
+
 .movement-item div {
   display: flex;
   flex-direction: column;
@@ -73,6 +79,26 @@
 
 .movement-item .expense-amount {
   color: #b44a43;
+}
+
+.movement-item.cancelled-entry .expense-amount,
+.movement-item.cancelled-entry b {
+  color: #b44a43;
+}
+
+.movement-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.movement-item .danger-btn {
+  padding: 0.45rem 0.7rem;
+  border: 1px solid #d7a7a2;
+  border-radius: 8px;
+  background: #fff;
+  color: #b44a43;
+  cursor: pointer;
 }
 
 @media (max-width: 780px) {
