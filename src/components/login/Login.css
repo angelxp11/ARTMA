@@ -1,0 +1,102 @@
+.login-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f9f3ec, #f3e4d5);
+}
+
+.login-card {
+  width: min(420px, 100%);
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 12px 30px rgba(118, 82, 53, 0.12);
+}
+
+.login-label,
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: #a66b3d;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+.login-card h2,
+.homepage-header h2,
+.inventario-header h2 {
+  margin: 0 0 1.5rem;
+  color: #2f241d;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: #6c5347;
+  font-size: 0.92rem;
+}
+
+.password-wrap {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e7d9c5;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fffaf4;
+}
+
+.password-wrap input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.8rem 0.9rem;
+  outline: none;
+}
+
+.login-form input {
+  border: 1px solid #e7d9c5;
+  border-radius: 10px;
+  padding: 0.8rem 0.9rem;
+  background: #fffaf4;
+}
+
+.toggle-password {
+  border: none;
+  background: #f0e6d8;
+  color: #4a3529;
+  padding: 0.8rem 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-form button,
+.primary-btn,
+.nav-btn,
+.inventario-item button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  background: #a66b3d;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.login-form button:hover,
+.primary-btn:hover,
+.nav-btn:hover,
+.inventario-item button:hover {
+  background: #7d4c2c;
+}

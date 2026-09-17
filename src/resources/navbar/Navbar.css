@@ -1,0 +1,40 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background: #2f241d;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(47, 36, 29, 0.15);
+}
+
+.brand {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+  color: #f4e8dc;
+}
+
+.nav-links li {
+  cursor: pointer;
+  opacity: 0.85;
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
+  transition: 0.2s ease;
+}
+
+.nav-links li:hover,
+.nav-links li.active {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.08);
+}
+

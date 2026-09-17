@@ -1,0 +1,78 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidProduct() {
+      return request.resource.data.keys().hasAll(['nombre', 'categoria', 'cantidad', 'precio'])
+        && request.resource.data.nombre is string
+        && request.resource.data.categoria is string
+        && request.resource.data.cantidad is number
+        && request.resource.data.precio is number
+        && request.resource.data.cantidad >= 0
+        && request.resource.data.precio >= 0;
+    }
+
+    function isValidExpense() {
+      return request.resource.data.keys().hasAll(['descripcion', 'monto', 'fecha', 'detalles'])
+        && request.resource.data.descripcion is string
+        && request.resource.data.monto is number
+        && request.resource.data.fecha is string
+        && request.resource.data.detalles is string
+        && request.resource.data.monto >= 0;
+    }
+
+    function isValidSale() {
+      return request.resource.data.keys().hasAll(['productId', 'producto', 'cantidad', 'precioUnitario', 'total', 'fecha', 'detalles'])
+        && request.resource.data.productId is string
+        && request.resource.data.producto is string
+        && request.resource.data.cantidad is number
+        && request.resource.data.precioUnitario is number
+        && request.resource.data.total is number
+        && request.resource.data.fecha is string
+        && request.resource.data.detalles is string
+        && request.resource.data.cantidad > 0
+        && request.resource.data.precioUnitario >= 0
+        && request.resource.data.total >= 0;
+    }
+
+    function isValidClient() {
+      return request.resource.data.keys().hasAll(['nombre', 'cedula', 'telefono', 'correo', 'direccion'])
+        && request.resource.data.nombre is string
+        && request.resource.data.cedula is string
+        && request.resource.data.telefono is string
+        && request.resource.data.correo is string
+        && request.resource.data.direccion is string;
+    }
+
+    match /products/{productId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidProduct();
+      allow update: if isSignedIn() && resource.data.keys().hasAll(['nombre', 'categoria', 'cantidad', 'precio']) && request.resource.data.nombre is string && request.resource.data.categoria is string && request.resource.data.cantidad is number && request.resource.data.precio is number && request.resource.data.cantidad >= 0 && request.resource.data.precio >= 0;
+      allow delete: if isSignedIn();
+    }
+
+    match /expenses/{expenseId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidExpense();
+      allow update: if isSignedIn() && isValidExpense();
+      allow delete: if isSignedIn();
+    }
+
+    match /sales/{saleId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidSale();
+      allow update: if isSignedIn() && isValidSale();
+      allow delete: if isSignedIn();
+    }
+
+    match /clients/{clientId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && isValidClient();
+      allow update: if isSignedIn() && isValidClient();
+      allow delete: if isSignedIn();
+    }
+  }
+}

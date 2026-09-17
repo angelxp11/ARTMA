@@ -1,0 +1,175 @@
+.inventario-section {
+  background: #fffaf4;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow-soft);
+  max-width: 1100px;
+  margin: 2rem auto;
+}
+
+.inventario-header {
+  margin-bottom: 1.5rem;
+}
+
+.product-form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.product-form input {
+  border: 1px solid #e7d9c5;
+  border-radius: 10px;
+  padding: 0.8rem 0.9rem;
+  background: #fff;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--color-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.pieces-field,
+.total-field {
+  grid-column: span 4;
+}
+
+.pieces-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.pieces-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.piece-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(120px, 1fr) auto;
+  gap: 0.6rem;
+}
+
+.add-piece-btn,
+.remove-piece-btn {
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.add-piece-btn {
+  background: transparent;
+  color: #a66b3d;
+}
+
+.remove-piece-btn {
+  width: 2.5rem;
+  border-radius: 10px;
+  background: #f6d8d6;
+  color: #a8322e;
+  font-size: 1.2rem;
+}
+
+.total-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0.9rem;
+  border-radius: 10px;
+  background: #f0e6d8;
+  color: #2f241d;
+}
+
+.primary-btn,
+.secondary-btn,
+.item-actions button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn,
+.item-actions button:not(.danger-btn) {
+  background: #a66b3d;
+  color: white;
+}
+
+.secondary-btn {
+  background: #e7d9c5;
+  color: #2f241d;
+}
+
+.danger-btn {
+  background: #d9534f;
+  color: white;
+}
+
+.inventario-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.inventario-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.item-badge {
+  background: #f0e6d8;
+  color: #7d4c2c;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: var(--color-text);
+}
+
+.item-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+@media (max-width: 768px) {
+  .product-form {
+    grid-template-columns: 1fr;
+  }
+
+  .inventario-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pieces-field,
+  .total-field {
+    grid-column: auto;
+  }
+
+  .piece-row {
+    grid-template-columns: 1fr 1fr auto;
+  }
+}

@@ -1,0 +1,27 @@
+.homepage-section {
+  display: grid;
+  min-height: calc(100vh - 74px);
+  place-items: center;
+  overflow: hidden;
+  background: #fffaf4;
+  perspective: 900px;
+}
+
+.homepage-coin {
+  width: clamp(180px, 38vw, 440px);
+  height: clamp(180px, 38vw, 440px);
+  object-fit: contain;
+  image-rendering: auto;
+  animation: coin-spin 8s linear infinite;
+  transform-style: preserve-3d;
+}
+
+@keyframes coin-spin {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}

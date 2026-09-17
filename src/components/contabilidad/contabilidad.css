@@ -1,0 +1,89 @@
+.accounting-totals {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.accounting-totals span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: #78695d;
+  font-size: 0.8rem;
+}
+
+.accounting-totals strong {
+  color: #7d4c2c;
+  font-size: 1rem;
+}
+
+.expense-form {
+  margin-bottom: 1.5rem;
+}
+
+.expense-fields {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.accounting-lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.movement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.movement-list h3 {
+  margin-bottom: 0.2rem;
+}
+
+.movement-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.movement-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.movement-item span,
+.movement-item small {
+  color: #78695d;
+}
+
+.movement-item b {
+  color: #3d7b4a;
+  white-space: nowrap;
+}
+
+.movement-item .expense-amount {
+  color: #b44a43;
+}
+
+@media (max-width: 780px) {
+  .accounting-header,
+  .accounting-totals {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .expense-fields,
+  .accounting-lists {
+    grid-template-columns: 1fr;
+  }
+}

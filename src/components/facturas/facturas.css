@@ -1,0 +1,54 @@
+.facturas-section {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 20px;
+  background: #fffaf4;
+  box-shadow: var(--shadow-soft);
+}
+
+.facturas-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.facturas-header h2 { margin-bottom: 0; }
+.facturas-header > span { color: #78695d; }
+.invoice-list { display: flex; flex-direction: column; gap: 0.8rem; }
+.invoice-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.8rem 1.2rem; padding: 1rem; border: 1px solid #e7d9c5; border-radius: 12px; background: #fff; }
+.invoice-card.cancelled { opacity: 0.65; background: #f7f2ed; }
+.invoice-main { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+.invoice-title { display: flex; align-items: center; gap: 0.6rem; }
+.invoice-main > span, .invoice-main small, .invoice-side span { color: #78695d; }
+.invoice-status { border-radius: 999px; padding: 0.2rem 0.55rem; background: #e4f1e5; color: #3d7b4a; font-size: 0.75rem; font-weight: 700; }
+.status-cancelled { background: #f6d8d6; color: #a8322e; }
+.invoice-side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; }
+.invoice-side strong { color: #7d4c2c; font-size: 1.1rem; }
+.invoice-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; }
+.invoice-actions select, .invoice-modal select, .invoice-modal input, .invoice-modal textarea, .new-client-form input { border: 1px solid #e7d9c5; border-radius: 8px; padding: 0.65rem 0.75rem; background: #fff; font: inherit; }
+.invoice-actions button, .new-client-button { border: 0; border-radius: 8px; padding: 0.65rem 0.8rem; background: #a66b3d; color: #fff; font-weight: 600; cursor: pointer; }
+.invoice-actions .danger-btn { background: #d9534f; }
+.invoice-modal-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 1rem; background: rgba(47, 36, 29, 0.48); }
+.invoice-modal { display: flex; width: min(520px, 100%); flex-direction: column; gap: 0.8rem; padding: 1.5rem; border-radius: 14px; background: #fffaf4; box-shadow: 0 20px 60px rgba(47, 36, 29, 0.24); }
+.invoice-modal-heading { display: flex; justify-content: space-between; align-items: center; }
+.invoice-modal-heading h2 { margin: 0; }
+.invoice-modal-heading button { border: 0; background: transparent; color: #78695d; font-size: 1.2rem; cursor: pointer; }
+.invoice-modal label { display: flex; flex-direction: column; gap: 0.3rem; color: var(--color-text); font-weight: 600; }
+.invoice-modal textarea { min-height: 100px; resize: vertical; }
+.new-client-button { align-self: flex-start; background: transparent; color: #a66b3d; padding-left: 0; }
+.new-client-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; padding: 0.8rem; border: 1px solid #e7d9c5; border-radius: 10px; background: #fff; }
+.invoice-client-note { margin: 0; color: #78695d; }
+.client-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.client-tabs button { border: 1px solid #e7d9c5; border-radius: 8px; padding: 0.7rem; background: #fff; cursor: pointer; }
+.client-tabs button.active { border-color: #a66b3d; background: #f0e6d8; color: #7d4c2c; font-weight: 700; }
+.client-results { display: flex; min-height: 70px; flex-direction: column; gap: 0.5rem; }
+.client-results p { margin: 0; color: #78695d; }
+.client-results button { display: flex; justify-content: space-between; align-items: center; gap: 1rem; border: 1px solid #e7d9c5; border-radius: 8px; padding: 0.7rem; background: #fff; color: var(--color-text); text-align: left; cursor: pointer; }
+.client-results button span { color: #78695d; font-size: 0.85rem; }
+.client-modal .new-client-form { grid-template-columns: 1fr; }
+.invoice-modal-actions { display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 0.4rem; }
+
+@media (max-width: 700px) {
+  .facturas-section { width: calc(100% - 1rem); padding: 1rem; }
+  .facturas-header { align-items: flex-start; flex-direction: column; }
+  .invoice-card { grid-template-columns: 1fr; }
+  .invoice-side { align-items: flex-start; }
+  .invoice-actions { justify-content: flex-start; }
+  .new-client-form { grid-template-columns: 1fr; }
+}
